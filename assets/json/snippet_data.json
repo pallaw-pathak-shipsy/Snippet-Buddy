@@ -1,0 +1,81 @@
+{
+    "status": "Ok",
+    "data": [
+        {
+            "id": "android_recent_snippet_1",
+            "title": "How to fix gradle bug",
+            "date": "2022-11-01",
+            "body": "html body",
+            "beer_count": 50,
+            "img_url": "https://1757140519.rsc.cdn77.org/blog/wp-content/uploads/2020/07/android.png",
+            "author": {
+                "id": "author_1",
+                "name": "Pallaw"
+            }
+        },
+        {
+            "id": "hr_recent_snippet_1",
+            "title": "Sample Hiring Process Checklist",
+            "date": "2022-03-03",
+            "body": "→ Hiring manager notifies People Success Team of the vacant position and confirms the budget for vacant position.\n→ Requisition form is completed by the hiring manager and given to the People Success Team.\n→ Job is posted internally and externally.\n→ Candidates are sourced by the People Success Team.\n→ People Success Team ensures applicants have completed application forms, background check authorization forms and voluntary EEO Forms.\n→ Top candidates are phone screened by the People Success Team.\n→ First in-person interviews with hiring managers are conducted.\n→ Second in-person interviews with the People Success Team are conducted.\n→ People Success Team and hiring manager discuss candidates and the top candidate is selected for the job.\n→ People Success Team collects all paperwork related to the interview process (applications, interview notes, etc.) for recordkeeping purposes.\n→ Top candidate's references and background checks completed by the People Success Team.\n→ Candidate is verbally and then formally offered and accepts the job in writing..\n→ Onboarding schedule set up for new hire.\n→ Employee action form completed by the People Success Team and the hiring manager.\n→ People Success Team ensures onboarding paperwork is completed.\n",
+            "beer_count": 30,
+            "img_url": "https://s3.us-east-1.amazonaws.com/co-assets/assets/images/_fbTw/HR-Titles.jpg",
+            "author": {
+                "id": "author_2",
+                "name": "Vraj"
+            }
+        },
+        {
+            "id": "hr_recent_snippet_2",
+            "title": "KEKA - Leave Module",
+            "date": "2022-04-03",
+            "body": "Leave management is a crucial mission for HR professionals. Event: Employee needs to take a leave of absence. \nAction 1: The employee submits a leave request on the KEKA. From here, he or she has the choice between an unpaid leave or a paid leave and can attach supporting documents in the request.\nAction 2: The request is automatically transmitted to the manager, either by email or with a notification directly accessible in KEKA.\nAction 3: If the request is approved by the manager, KEKA automatically sends it to the People Success Team, who then reviews it.\nAction 4: Once the absence is approved, the Leave module is updated and takes into account the employee's absence. Consequently, the employee's attendance schedule is changed accordingly.\n ______________________________________________________________________\nProduct1 : Password Guidelines\nThere would be requirements for passwords created by the orgs:\nMaintain an 8-character minimum length requirement (longer isn't necessarily better) \nShould consist from at least 3 out of 4 types of the below: \nUppercase letter \nLowercase letter \nNumber \nSpecial character \n3. Should not be identical to the last n passwords for that user. (n can be set by the org). By default n=3. \n4. Change of password is not allowed within 24 hours of resetting the password.\n",
+            "beer_count": 100,
+            "img_url": "https://s3-us-east-2.amazonaws.com/maryville/wp-content/uploads/2020/07/23103604/hr-team.jpg",
+            "author": {
+                "id": "author_2",
+                "name": "Vraj"
+            }
+        },
+        {
+            "id": "product_recent_snippet_1",
+            "title": "Workflow for Epic",
+            "date": "2022-05-03",
+            "body": "Epic is created in open stage.\nOnce the user (Pre-sales, TPM, CSM) start working on it, he will move it to High level solutioning. In this stage, he will collaborate with the solution architect, PM, TL for the solutioning and write a high level solution. After this he will move the Epic to solutioning approval pending (he will assign the solution architect also)\nOnce the responsible person reviews it, he/she will give his approval on it and will move to solutioning approved\nAt this stage, the requestor will breakdown the epic into stories as per the approved solutioning\nRest of the flow moves automatically from the statuses of the stories\nThe tickets created can be moved to Long term backlog (longer term ~2-3 quarters later) or short term backlog (1-2 quarter)\n",
+            "beer_count": 40,
+            "img_url": "",
+            "author": {
+                "id": "author_2",
+                "name": "Vraj"
+            }
+        },
+        {
+            "id": "python_recent_snippet_1",
+            "title": "Watch out for mutable default arguments in Python",
+            "date": "2022-05-03",
+            "body": "Default arguments in Python are evaluated only once. The evaluation happens when the function is defined, instead of every time the function is called. This can inadvertently create hidden shared state, if you use a mutable default argument and mutate it at some point. This means that the mutated argument is now the default for all future calls to the function as well.\n\nTake the following code as an example. Every call to the function shares the same list. So, the second time it's called, the function doesn't start out with an empty list. Instead, the default argument is the list containing the value from the previous call.\n\ndef append(n, l = []):\n  l.append(n)\n  return l\n  \nappend(0) # [0]\nappend(1) # [0, 1]\n\nIf you absolutely need to use a mutable object as the default value in a function, you can set the default value of the argument to None instead. Then, checking in the function body if it is None, you can set it to the mutable value you want without side effects.\n\ndef append(n, l = None):\n  if l is None:\n    l = []\n  l.append(n)\n  return l\n  \nappend(0) # [0]\nappend(1) # [1]\n",
+            "beer_count": 60,
+            "img_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmy-ZZTfrSX-aXA0xo2GPMmcdXSGKqpfkycQ&usqp=CAU",
+            "author": {
+                "id": "author_3",
+                "name": "Anshu Jindal"
+            }
+        },
+        {
+            "id": "python_recent_snippet_2",
+            "title": "Avoid using bare except in Python",
+            "date": "2022-05-03",
+            "body": "In Python, keyboard interrupts and system exits are propagated using exceptions (i.e. KeyboardInterrupt and SystemExit). As a result, a bare except clause is going to catch something like the user hitting Ctrl + C.\n\nConsider the following code. If the user were to try exiting the program, the keyboard interrupt would be caught by the except clause. This would be undesirable, as it prevents the user from actually exiting the program until they provide valid input.\n\nwhile True:\n  try:\n    s = input('Input a number:')\n    x = int(s)\n  except:\n    print('Not a number, try again!')\nA way to prevent this would be to use Exception which will ensure that the user will not be trapped. The only problem with this approach is that Exception is generic and will handle pretty much anything thrown at it.\n\nwhile True:\n  try:\n    s = input('Input a number:')\n    x = int(s)\n  except Exception:\n    print('Not a number, try again!')\nThe correct way to handle errors is to specify the type of error you expect. For example, in this code sample, ValueError would be appropriate.\n\nwhile True:\n  try:\n    s = input('Input a number:')\n    x = int(s)\n  except ValueError:\n    print('Not a number, try again!')\nAs a rule of thumb, you should only handle expected failure states using except with an appropriate error type. In the case of unexpected errors, it might be better to simply let the program fail naturally and exit.",
+            "beer_count": 60,
+            "img_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmy-ZZTfrSX-aXA0xo2GPMmcdXSGKqpfkycQ&usqp=CAU",
+            "author": {
+                "id": "author_3",
+                "name": "Anshu Jindal"
+            }
+        }
+    ],
+    "error": {
+      "msg": "error messages",
+      "stack": "stack trace"
+    }
+  }

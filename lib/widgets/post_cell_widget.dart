@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 
 class PostCellWidget extends StatelessWidget {
-  final String title;
-  final String image;
-  final String author;
-  final String date;
-  final Function onClick;
-  PostCellWidget(
-      {@required this.title,
-      @required this.image,
-      @required this.author,
-      @required this.date,
-      @required this.onClick});
+  final String? title;
+  final String? image;
+  final String? author;
+  final String? date;
+  final VoidCallback? onClick;
+  PostCellWidget({
+    required this.title,
+    required this.image,
+    required this.author,
+    required this.date,
+    required this.onClick,
+  });
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -25,7 +26,7 @@ class PostCellWidget extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Image.asset(
-                  image,
+                  image ?? "",
                   fit: BoxFit.cover,
                 ),
               ),
@@ -39,7 +40,7 @@ class PostCellWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    title ?? "",
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.black,

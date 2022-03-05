@@ -1,16 +1,85 @@
+import 'package:clipboard/clipboard.dart';
+import 'package:code_text_field/code_text_field.dart';
+import 'package:floating_action_bubble/floating_action_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:highlight/languages/dart.dart';
+import 'package:flutter_highlight/themes/monokai-sublime.dart';
 
-class PostDetailsPage extends StatelessWidget {
+class PostDetailsPage extends StatefulWidget {
   final String title;
   final String image;
   final String author;
   final String date;
-  PostDetailsPage(
-      {@required this.title,
-      @required this.image,
-      @required this.author,
-      @required this.date});
+  PostDetailsPage({
+    required this.title,
+    required this.image,
+    required this.author,
+    required this.date,
+  });
+
+  @override
+  State<PostDetailsPage> createState() => _PostDetailsPageState();
+}
+
+class _PostDetailsPageState extends State<PostDetailsPage>
+    with SingleTickerProviderStateMixin {
+  late Animation<double> _animation;
+  late AnimationController _animationController;
+  late CodeController _codeController;
+
+  final source = """
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Welcome to Flutter',
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Welcome to Flutter'),
+        ),
+        body: const Center(
+          child: Text('Hello World'),
+        ),
+      ),
+    );
+  }
+}""";
+
+  final preset = <String>[
+    "dart|monokai-sublime",
+    "python|atom-one-dark",
+    "cpp|an-old-hope",
+    "java|a11y-dark",
+    "javascript|vs",
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 260),
+    );
+
+    final curvedAnimation =
+        CurvedAnimation(curve: Curves.easeInOut, parent: _animationController);
+    _animation = Tween<double>(begin: 0, end: 1).animate(curvedAnimation);
+
+    _codeController = CodeController(
+      text: source,
+      language: dart,
+      theme: monokaiSublimeTheme,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,40 +91,40 @@ class PostDetailsPage extends StatelessWidget {
           color: Colors.black,
         ),
         actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Container(
-                color: Colors.grey[200],
-                child: IconButton(
-                  icon: Icon(
-                    Icons.bookmark_outline,
-                    size: 20,
-                  ),
-                  color: Colors.grey,
-                  onPressed: () {},
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Container(
-                color: Colors.grey[200],
-                child: IconButton(
-                  icon: Icon(
-                    Icons.favorite_outline,
-                    size: 20,
-                  ),
-                  color: Colors.grey,
-                  onPressed: () {},
-                ),
-              ),
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child: ClipRRect(
+          //     borderRadius: BorderRadius.circular(8),
+          //     child: Container(
+          //       color: Colors.grey[200],
+          //       child: IconButton(
+          //         icon: Icon(
+          //           Icons.bookmark_outline,
+          //           size: 20,
+          //         ),
+          //         color: Colors.grey,
+          //         onPressed: () {},
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          // Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child: ClipRRect(
+          //     borderRadius: BorderRadius.circular(8),
+          //     child: Container(
+          //       color: Colors.grey[200],
+          //       child: IconButton(
+          //         icon: Icon(
+          //           Icons.favorite_outline,
+          //           size: 20,
+          //         ),
+          //         color: Colors.grey,
+          //         onPressed: () {},
+          //       ),
+          //     ),
+          //   ),
+          // ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ClipRRect(
@@ -75,47 +144,55 @@ class PostDetailsPage extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: ClipRRect(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(32),
-          topRight: Radius.circular(32),
-        ),
-        child: BottomAppBar(
-          elevation: 0,
-          child: Container(
-            padding: const EdgeInsets.all(20),
-            height: 65,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                IconButton(
-                    icon: Icon(
-                      Icons.headset,
-                      color: Colors.grey,
-                    ),
-                    onPressed: () {}),
-                IconButton(
-                    icon: Icon(
-                      Icons.wb_sunny_outlined,
-                      color: Colors.grey,
-                    ),
-                    onPressed: () {}),
-                IconButton(
-                    icon: Icon(
-                      Icons.nights_stay_outlined,
-                      color: Colors.grey,
-                    ),
-                    onPressed: () {}),
-                IconButton(
-                    icon: Icon(
-                      Icons.format_size_outlined,
-                      color: Colors.grey,
-                    ),
-                    onPressed: () {}),
-              ],
-            ),
+      floatingActionButton: FloatingActionBubble(
+        animation: _animation,
+        items: [
+          Bubble(
+            title: "30 Beers",
+            iconColor: Colors.white,
+            bubbleColor: Colors.blue,
+            icon: Icons.wine_bar,
+            titleStyle: TextStyle(fontSize: 16, color: Colors.white),
+            onPress: () {
+              // Navigator.push(
+              //     context,
+              //     new MaterialPageRoute(
+              //         builder: (BuildContext context) => Homepage()),
+
+              //         );
+              // _animationController.reverse();
+            },
           ),
-        ),
+          Bubble(
+            title: "20 Beers",
+            iconColor: Colors.white,
+            bubbleColor: Colors.blue,
+            icon: Icons.wine_bar,
+            titleStyle: TextStyle(fontSize: 16, color: Colors.white),
+            onPress: () {
+              // _animationController.reverse();
+            },
+          ),
+          // Floating action menu item
+          Bubble(
+            title: "10 Beers",
+            iconColor: Colors.white,
+            bubbleColor: Colors.blue,
+            icon: Icons.wine_bar,
+            titleStyle: TextStyle(fontSize: 16, color: Colors.white),
+            onPress: () {
+              // _animationController.reverse();
+            },
+          ),
+          //Floating action menu item
+        ],
+        iconColor: Colors.brown.shade900,
+        onPress: () => _animationController.isCompleted
+            ? _animationController.reverse()
+            : _animationController.forward(),
+        backGroundColor: Colors.yellow,
+        // label: Text("Beers"),
+        iconData: Icons.wine_bar,
       ),
       body: SafeArea(
         minimum: const EdgeInsets.symmetric(horizontal: 16),
@@ -124,7 +201,7 @@ class PostDetailsPage extends StatelessWidget {
           child: ListView(
             children: [
               Text(
-                title,
+                widget.title,
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 32,
@@ -144,9 +221,9 @@ class PostDetailsPage extends StatelessWidget {
                   const SizedBox(
                     width: 8,
                   ),
-                  Text('$author, '),
+                  Text('${widget.author}, '),
                   Text(
-                    date,
+                    widget.date,
                     style: TextStyle(color: Colors.grey),
                   ),
                 ],
@@ -183,12 +260,12 @@ class PostDetailsPage extends StatelessWidget {
                     spacing: 4,
                     children: [
                       Icon(
-                        Icons.favorite,
+                        Icons.wine_bar,
                         color: Colors.grey,
                         size: 18,
                       ),
                       Text(
-                        '106 Likes',
+                        '106 beers',
                         style: TextStyle(
                           color: Colors.grey,
                           fontSize: 14,
@@ -224,11 +301,44 @@ class PostDetailsPage extends StatelessWidget {
               Container(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12),
-                  child: Image.asset(image),
+                  child: Image.asset(widget.image),
                 ),
               ),
               const SizedBox(
                 height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      primary: Colors.black,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    onPressed: () {
+                      FlutterClipboard.copy(source).then((result) {
+                        final snackBar = SnackBar(
+                          content: Text('Copied to Clipboard'),
+                          action: SnackBarAction(
+                            label: 'Undo',
+                            onPressed: () {},
+                          ),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      });
+                    },
+                    child: Text("Copy"),
+                  )
+                ],
+              ),
+              Card(
+                clipBehavior: Clip.hardEdge,
+                child: CodeField(
+                  controller: _codeController,
+                  textStyle: TextStyle(fontFamily: 'SourceCode'),
+                ),
               ),
               RichText(
                 text: TextSpan(
